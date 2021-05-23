@@ -27,7 +27,7 @@ void cs_que1(int* score)
 
 void cs_que2()
 {
-
+	//Haven't Done 
 }
 void cs_que3()
 {
