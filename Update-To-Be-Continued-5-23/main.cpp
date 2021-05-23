@@ -78,7 +78,7 @@ int main()
 			timep.detach();
 			do
 			{
-				cout << "ÇëÑ¡ÔñÄãµÄ²âÊÔ¾í:";
+				cout << "ÇëÑ¡ÔñÄãµÄ²âÊÔ¾í:";//In Github it will show a bad word,but I don't why 
 				cin >> CHOOSE;
 			}while(CHOOSE !="s" && CHOOSE !="p");
 			if(CHOOSE =="s" && cs.joinable()) cs.join();//Need to use join()
