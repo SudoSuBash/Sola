@@ -3,15 +3,20 @@
 
 #include <iostream>
 #include <windows.h>
+#include <thread>
 using namespace std;
 
 int* mark_py;
-
 void py_que1(int* score);
 void py_que2();
 void py_que3();
 void py_que4();
 void py_que5();
+
+thread pq2(py_que2);
+thread pq3(py_que3);
+thread pq4(py_que4);
+thread pq5(py_que5);
 
 void py_que1(int* score)
 {
@@ -23,7 +28,7 @@ void py_que1(int* score)
 	cout << "不会?输入Pass来跳过这个题目.\n答案:";	
 	cin >> ans;
 	if(ans=="Jython" || ans=="JPython") *mark_py++;
-	py_que2();
+	pq2.join();
 }
 
 void py_que2()
@@ -35,7 +40,7 @@ void py_que2()
 	cout << "不会?输入Pass来跳过这个题目.\n答案:";
 	cin >> ans1 >> ans2;
 	if(ans1=="turtle" && ans2=="3") *mark_py++;
-	py_que3();
+	pq3.join();
 }
 
 void py_que3()
@@ -47,7 +52,7 @@ void py_que3()
 	cout << "不会?输入Pass来跳过这个题目.\n答案:";
 	cin >> ans1 >> ans2;
 	if(ans1=="python2.6" && ans2=="python2.7") *mark_py++;
-	py_que4();
+	pq4.join();
 }
 
 void py_que4()
@@ -59,7 +64,7 @@ void py_que4()
 	cout << "不会?输入Pass来跳过这个题目.\n答案:";
 	cin >> ans;
 	if(ans=="os") *mark_py++;
-	py_que5();
+	pq5.join();
 }
 
 void py_que5()

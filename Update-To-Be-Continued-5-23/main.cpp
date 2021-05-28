@@ -59,7 +59,7 @@ void calctime()
 		Sleep(1);
 	}
 	if(check(SCORE)==true) killthis(hwnd);
-	else if(check(SCORE)==false) killcomputer();//Not pass
+	else if(check(SCORE)==false) killcomputer(SCORE);//Not pass
 }
 
 int main()
@@ -84,7 +84,7 @@ int main()
 			if(CHOOSE =="s" && cs.joinable()) cs.join();//Need to use join()
 			else if(CHOOSE == "P" && py.joinable()) py.join();	
 			if(check(SCORE)==true) killthis(hwnd);
-			else if(check(SCORE)==false) killcomputer();//Not pass
+			else if(check(SCORE)==false) killcomputer(SCORE);//Not pass
 		}
 	}
 }

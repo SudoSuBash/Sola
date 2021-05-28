@@ -2,6 +2,7 @@
 #define QUESTIONP_H
 
 #include <iostream>
+#include<thread>
 using namespace std;
 
 int* mark_cs;
@@ -11,6 +12,11 @@ void cs_que2();
 void cs_que3();
 void cs_que4();
 void cs_que5();
+
+thread cq2(cs_que2);
+thread cq3(cs_que3);
+thread cq4(cs_que4);
+thread cq5(cs_que5);
  
 void cs_que1(int* score)
 {
@@ -22,7 +28,7 @@ void cs_que1(int* score)
         cout << "不会?输入Pass来跳过这个题目.\n答案:";
         cin >> ans1 >> ans2 >> ans3;
         if(ans1=="1" && ans2=="3" && ans3=="5") *mark_cs++;    
-		cs_que2();     
+		cq2.join();  
 }
 
 void cs_que2()
