@@ -80,30 +80,22 @@ int main()
 		system("cls");	
 		DeleteMenu(GetSystemMenu(GetConsoleWindow(), FALSE), SC_CLOSE, MF_BYCOMMAND); 
 		//If this thread can start
-		thread showlight(show_light);
-		showlight.detach();
-		thread showpart1(show_part1);
-		showpart1.join();//Attention:this thread variable must be join
-		show_part2();
-		thread timep(calctime);
-		timep.detach();
+		//thread showlight(show_light);
+		//showlight.detach();
+		//thread showpart1(show_part1);
+		//showpart1.join();//Attention:this thread variable must be join
+		//show_part2();
+		//thread timep(calctime);
+		//timep.detach();
 		do
 		{
-			cout << "ÇëÑ¡ÔñÄãµÄ²âÊÔ¾í:";//In Github it will show a bad word,but I don't why 
+			cout << "ÇëÑ¡ÔñÄãµÄ²âÊÔ¾í(s:C# p:Python):";//In Github it will show a bad word,but I don't why 
 			cin >> CHOOSE;
 		}while(CHOOSE !="s" && CHOOSE !="p");
-		if(CHOOSE =="s") 
-		{
-			//thread cs(cs_que1,&SCORE);
-			//cs.join();//Need to use join()
-		}
-		else if(CHOOSE == "p") 
-		{
-			//thread py(py_que1,&SCORE);
-			//py.join();
-		}	
-		if(check(SCORE)==true) killthis(hwnd);
-		else if(check(SCORE)==false) killcomputer(SCORE);//Not pass
+		if(CHOOSE =="s") cs_que1(&SCORE);
+		else if(CHOOSE == "p") py_que1(&SCORE);	
+		//if(check(SCORE)==true) killthis(hwnd);
+		//else if(check(SCORE)==false) killcomputer(SCORE);//Not pass
 	}
 	else return 0;
 }
